@@ -1,0 +1,91 @@
+.box {
+  height: 200px;
+  width: 200px;
+  overflow: auto;
+  background: red;
+}
+
+.products-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.products-grid > div > img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.products-grid > div > h2, p {
+  margin: 0;
+}
+
+@media screen and (min-width: 40em) {
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 15px;
+  }
+}
+
+.grid-two-columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.message-error {
+  font-weight: bold;
+  color: red;
+  opacity: 1;
+}
+
+.message-error:invalid {
+  opacity: 0;
+  transition: 10px 2s .5s;
+}
+
+.line-error {
+  height: 10px;
+  border-bottom: 1px solid;
+}
+
+.line-error:invalid {
+  border-color: red;
+}
+.line-error:valid {
+  border-color: green;
+}
+
+.styles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.input-group > label {
+  display: block;
+  color: #aaaaaa;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  margin: 1px 1px 1px 5px;
+}
+.input-group > input {
+  border: 1px solid #aaaaaa;
+  border-radius: .5em;
+  height: 20px;
+  width: 220px;
+}
+.input-group > p {
+  margin: 1px 1px 5px 5px;
+  font-size: 10px;
+  margin-bottom: 3px;
+  color: red;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+form > button {
+  display: block;
+}

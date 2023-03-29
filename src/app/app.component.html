@@ -1,0 +1,202 @@
+<h1>String Interpolation</h1>
+<!-- String Interpolation -->
+<h2>{{ "Hola Mundo".repeat(5) }}</h2>
+<p>3 + 3 = {{ 3 + 3 }}</p>
+<h3>Hola, Soy {{ name }} y tengo {{ age }}</h3>
+<img src="{{ img }}" alt="image" style="border-radius: 10%" />
+
+<hr />
+
+<!-- Property Binding -->
+<h1>Property Binding</h1>
+<button [disabled]="btnDisabled">Enviar</button>
+<input type="text" [value]="name" />
+<progress max="100" [value]="age"></progress>
+<img width="100" [src]="img" />
+
+<hr />
+
+<h1>Property Binding con objetos</h1>
+<input type="text" [value]="person.name" />
+<progress max="100" [value]="person.age"></progress>
+<img width="100" [src]="person.avatar" alt="" />
+
+<hr />
+
+<h1>Event Binding</h1>
+<button [disabled]="btnDisabled">Enviar</button>
+<button (click)="toggleButton()">Toggle button</button>
+<p>Edad {{ person.age }}</p>
+<button (click)="increaseAge()">Age ++</button>
+<div class="box" (scroll)="onScroll($event)">
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi tenetur
+    aut minus molestiae quia optio error harum aspernatur necessitatibus velit,
+    eligendi ab in quasi consequuntur incidunt ullam perferendis. Quas,
+    reprehenderit.
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur quidem
+    vel sunt ab facere, inventore doloremque. Quod sapiente maxime totam
+    mollitia aliquam reiciendis sit, eligendi aut, ipsam exercitationem
+    perferendis voluptatum.
+  </p>
+</div>
+<p>Nombre: {{ person.name }}</p>
+<input type="text" [value]="person.name" (keyup)="changeName($event)">
+
+<hr/>
+
+<h1>Data Binding [(ngModel)]</h1>
+<p>Nombre {{ person.name }} </p>
+<!--
+  debemos colocarle un valor a el input en este caso
+  se lo ponermos de la siguiente manera "#nameInput" y
+  decirle que que el campo es requerido.
+-->
+<input type="text" required #nameInput="ngModel" [(ngModel)]="person.name" />
+<!--
+  para poder utilizar "nameInput.valid" en la propiedad
+  debemos indicarle a "nameInput" que el valor para validar
+  lo tomara de ngModel.
+ -->
+<p>Valid: {{ nameInput.valid }} </p>
+
+<p>Nombre {{ person.age }} </p>
+<input type="number" max="18" min="10" required #ageInput="ngModel" [(ngModel)]="person.age" >
+<p>Valid: {{ ageInput.valid }} </p>
+
+<hr/>
+
+<h1>*ngIf</h1>
+<input type="text" required #nameInput2="ngModel" [(ngModel)]="person.name" />
+<p *ngIf="person.name === 'Juan'">Soy Juan</p>
+<p *ngIf="person.name === 'Julian' && person.age === 18; else elseBlock">Soy Julian</p>
+<ng-template #elseBlock>
+  <p>Bloque de else</p>
+</ng-template>
+
+<hr>
+
+<h1>*ngFor</h1>
+<!--
+  La sintaxis nos pide la variable donde queremos
+  almacenar el valor que vamos a iterar luego nos pide
+  de donde lo vamos a iterar en este caso el arreglo de emojis,
+  un extra si queremos obtener el index de cada uno de los valores
+  del arreglo lo unico es poner despues del arreglo un ";" y ponder index
+  tambien podemos renombrar este con la palabra reservada "as";
+-->
+<ul >
+  <li *ngIf="emojis.length == 0">No hay informacion!</li>
+  <li *ngFor="let e of emojis; index as i">
+    {{ i }}
+    {{ e }}
+    <button (click)="removeName(i)">Delete</button>
+  </li>
+</ul>
+
+<input type="text" required [(ngModel)]="newName">
+<button (click)="addName()">Add name</button>
+
+<h1>*ngFor Objs</h1>
+<div class="products-grid">
+  <div *ngFor="let product of products">
+    <img [src]="product.image" alt="image" />
+    <p> {{ product.name }} </p>
+    <p> {{ product.price }} </p>
+  </div>
+</div>
+
+<hr>
+
+<h1>*ngSwitch</h1>
+<input type="text" required [(ngModel)]="person.name" />
+<div [ngSwitch]="person.name">
+  <p *ngSwitchCase="'juan'">
+    La persona es juan
+  </p>
+  <p *ngSwitchCase="'julian'">
+    La persona es julian
+  </p>
+  <p *ngSwitchCase="'camilo'">
+    La persona es camilo
+  </p>
+  <p *ngSwitchDefault>
+    No hace match
+  </p>
+</div>
+
+<hr>
+
+<h1>Class & Style</h1>
+<input type="text" required #nameInput2="ngModel" [(ngModel)]="person.name" />
+<p class="message-error"  [class.invalid]="nameInput2.invalid">
+  El campo es requerido
+</p>
+
+<label for="">Nombre</label>
+<input type="text" required #nameInput4="ngModel" [(ngModel)]="person.name" >
+<p [style.font-style]="nameInput4.invalid ? 'italic' : 'normal'">Text text text</p>
+<div class="grid-two-columns">
+  <div>
+    <input type="text" [(ngModel)]="widthImg" />
+  </div>
+  <div>
+    <img [style.width.px]="widthImg" [src]="person.avatar" alt="">
+  </div>
+</div>
+
+<hr>
+
+<h1>NgClass & NgStyle</h1>
+<input type="text" required #nameInput5="ngModel" [(ngModel)]="person.name" >
+<hr class="line-error"
+  [ngClass]="{
+    'valid': nameInput4.valid,
+    'invalid': nameInput4.invalid
+  }"
+/>
+<p class="message-error" *ngIf="nameInput5.invalid">
+  El campo es requerido!
+</p>
+
+<div class="styles">
+  <div>
+    <input type="text" [(ngModel)]="box.width" />
+    <input type="text" [(ngModel)]="box.height" />
+    <input type="color" [(ngModel)]="box.background" />
+  </div>
+  <div>
+    <div [ngStyle]="{
+      'width.px': box.width,
+      'height.px': box.height,
+      'background-color': box.background,
+      'display': 'block'
+    }"></div>
+  </div>
+</div>
+
+
+<hr>
+
+<h1>Formulario</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+  <div class="input-group">
+    <label for="">Nombre</label>
+    <input type="text" required name="name" id="name" #nameForm="ngModel" [(ngModel)]="register.name" [defaultValue]="'name'" />
+    <p [class.invalid]="nameForm.invalid">campo obligatorio</p>
+  </div>
+  <div class="input-group">
+    <label for="">Email</label>
+    <input type="email" required name="email" id="email" #emailForm="ngModel" [(ngModel)]="register.email" />
+    <p *ngIf="emailForm.invalid">campo obligatorio</p>
+  </div>
+  <div class="input-group">
+    <label for="">Password</label>
+    <input type="password" required name="password" id="password" #passwordForm="ngModel" [(ngModel)]="register.password" />
+    <p *ngIf="passwordForm.invalid">campo obligatorio</p>
+  </div>
+  <button [disabled]="myForm.invalid" type="submit">Registrar</button>
+  <!-- <button type="button">Accion</button> -->
+</form>
